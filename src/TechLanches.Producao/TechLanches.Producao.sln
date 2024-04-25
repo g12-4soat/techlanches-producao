@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter", "Adapter", "{F1CD8CD8-7853-4DE3-A54F-8B746B6BCF92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E45DE8BC-9457-4710-9BED-CA7FC9CE9655}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{20D05471-598F-450D-8FDF-71A67AD7769B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driven", "Driven", "{45E51026-4805-43F3-BE8D-B85A3CFC38DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{B137098E-375E-42C1-A4C2-437B07BAB328}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechLanches.Producao.Adapter.API", "Adapter\Driver\TechLanches.Producao.Adapter.API\TechLanches.Producao.Adapter.API.csproj", "{2B2256C2-64B1-4C02-B8B5-D7C0823F178E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechLanches.Producao.Adapter.RabbitMq", "Adapter\Driven\TechLanches.Producao.Adapter.RabbitMq\TechLanches.Producao.Adapter.RabbitMq.csproj", "{158ADB1A-10BC-44A8-908D-E127F23E55D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechLanches.Producao.Application", "Core\TechLanches.Producao.Application\TechLanches.Producao.Application.csproj", "{E9EB0D4A-920F-4E74-8E69-EDAA4C2125A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechLanches.Producao.Domain", "Core\TechLanches.Producao.Domain\TechLanches.Producao.Domain.csproj", "{26D49A41-11F5-4A38-9AA9-7A08A9A4F2AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechLanches.Producao.Core", "Core\TechLanches.Producao.Core\TechLanches.Producao.Core.csproj", "{5C0961A5-29A2-444E-8A2A-04A22A85387B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechLanches.Producao.Adapter.AWS", "Adapter\Driven\TechLanches.Producao.Adapter.AWS\TechLanches.Producao.Adapter.AWS.csproj", "{80FCEED2-D8E1-4F7C-8A85-8F231500B2E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechLanches.Producao.Adapter.FilaPedidos", "Adapter\Driver\TechLanches.Producao.Adapter.FilaPedidos\TechLanches.Producao.Adapter.FilaPedidos.csproj", "{181A46FA-6355-4617-8465-BDCE8CD08D5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B2256C2-64B1-4C02-B8B5-D7C0823F178E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B2256C2-64B1-4C02-B8B5-D7C0823F178E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B2256C2-64B1-4C02-B8B5-D7C0823F178E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B2256C2-64B1-4C02-B8B5-D7C0823F178E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{158ADB1A-10BC-44A8-908D-E127F23E55D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158ADB1A-10BC-44A8-908D-E127F23E55D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158ADB1A-10BC-44A8-908D-E127F23E55D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158ADB1A-10BC-44A8-908D-E127F23E55D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9EB0D4A-920F-4E74-8E69-EDAA4C2125A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9EB0D4A-920F-4E74-8E69-EDAA4C2125A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9EB0D4A-920F-4E74-8E69-EDAA4C2125A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9EB0D4A-920F-4E74-8E69-EDAA4C2125A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D49A41-11F5-4A38-9AA9-7A08A9A4F2AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D49A41-11F5-4A38-9AA9-7A08A9A4F2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D49A41-11F5-4A38-9AA9-7A08A9A4F2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D49A41-11F5-4A38-9AA9-7A08A9A4F2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C0961A5-29A2-444E-8A2A-04A22A85387B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C0961A5-29A2-444E-8A2A-04A22A85387B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C0961A5-29A2-444E-8A2A-04A22A85387B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C0961A5-29A2-444E-8A2A-04A22A85387B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80FCEED2-D8E1-4F7C-8A85-8F231500B2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80FCEED2-D8E1-4F7C-8A85-8F231500B2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80FCEED2-D8E1-4F7C-8A85-8F231500B2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80FCEED2-D8E1-4F7C-8A85-8F231500B2E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181A46FA-6355-4617-8465-BDCE8CD08D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181A46FA-6355-4617-8465-BDCE8CD08D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181A46FA-6355-4617-8465-BDCE8CD08D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181A46FA-6355-4617-8465-BDCE8CD08D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{45E51026-4805-43F3-BE8D-B85A3CFC38DD} = {F1CD8CD8-7853-4DE3-A54F-8B746B6BCF92}
+		{B137098E-375E-42C1-A4C2-437B07BAB328} = {F1CD8CD8-7853-4DE3-A54F-8B746B6BCF92}
+		{2B2256C2-64B1-4C02-B8B5-D7C0823F178E} = {B137098E-375E-42C1-A4C2-437B07BAB328}
+		{158ADB1A-10BC-44A8-908D-E127F23E55D9} = {45E51026-4805-43F3-BE8D-B85A3CFC38DD}
+		{E9EB0D4A-920F-4E74-8E69-EDAA4C2125A4} = {E45DE8BC-9457-4710-9BED-CA7FC9CE9655}
+		{26D49A41-11F5-4A38-9AA9-7A08A9A4F2AA} = {E45DE8BC-9457-4710-9BED-CA7FC9CE9655}
+		{5C0961A5-29A2-444E-8A2A-04A22A85387B} = {E45DE8BC-9457-4710-9BED-CA7FC9CE9655}
+		{80FCEED2-D8E1-4F7C-8A85-8F231500B2E3} = {45E51026-4805-43F3-BE8D-B85A3CFC38DD}
+		{181A46FA-6355-4617-8465-BDCE8CD08D5D} = {B137098E-375E-42C1-A4C2-437B07BAB328}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72CBD7F4-63C0-4BD4-AE91-3D2A2DB73395}
+	EndGlobalSection
+EndGlobal
