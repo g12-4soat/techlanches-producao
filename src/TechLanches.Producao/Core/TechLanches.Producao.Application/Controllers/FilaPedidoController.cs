@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechLanches.Producao.Application.Controllers.Interfaces;
+﻿using TechLanches.Producao.Application.Controllers.Interfaces;
 using TechLanches.Producao.Application.DTOs;
 using TechLanches.Producao.Domain.Enums;
 

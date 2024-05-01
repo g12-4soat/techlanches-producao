@@ -1,5 +1,4 @@
 ﻿using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 namespace TechLanches.Producao.Adapter.API.Configuration
 {

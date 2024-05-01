@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TechLanches.Producao.Application.DTOs
+﻿namespace TechLanches.Producao.Application.DTOs
 {
     public class PagamentoResponseDTO
     {

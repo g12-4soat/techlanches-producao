@@ -3,7 +3,6 @@ using TechLanches.Producao.Adapter.API.Options;
 using TechLanches.Producao.Adapter.FilaPedidos;
 using TechLanches.Producao.Adapter.FilaPedidos.Health;
 using TechLanches.Producao.Adapter.FilaPedidos.Options;
-using TechLanches.Producao.Adapter.RabbitMq.Messaging;
 using TechLanches.Producao.Adapter.RabbitMq.Options;
 
 var builder = WebApplication.CreateBuilder(args);
