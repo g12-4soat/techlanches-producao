@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using TechLanches.Producao.Adapter.API.Constantes;
@@ -22,9 +23,13 @@ namespace TechLanches.Producao.Adapter.API.Endpoints
         }
 
         private static async Task<IResult> RetornarFilaPedidos(
-            [FromServices] IFilaPedidoController filaPedidoController)
+            [FromServices] IPedidoController pedidoController,
+            [FromServices] IMemoryCache memoryCache,
+            [FromHeader(Name = "Authorization")] string cognitoAcessToken)
         {
-            var pedidos = await filaPedidoController.BuscarPorStatus(StatusPedido.PedidoEmPreparacao);
+            memoryCache.Set("authtoken", cognitoAcessToken, TimeSpan.FromMinutes(5));
+
+            var pedidos = await pedidoController.BuscarPorStatus(StatusPedido.PedidoEmPreparacao);
             return pedidos is not null
                 ? Results.Ok(pedidos)
                 : Results.BadRequest(new ErrorResponseDTO { MensagemErro = "Erro ao retornar fila pedido.", StatusCode = HttpStatusCode.BadRequest });
