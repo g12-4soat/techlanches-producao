@@ -1,10 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using TechLanches.Producao.Application.Controllers.Interfaces;
 using TechLanches.Producao.Application.DTOs;
 using TechLanches.Producao.Application.Gateways;
@@ -22,10 +16,10 @@ namespace TechLanches.Producao.Application.Controllers
             _pedidoGateway = new PedidoGateway(httpClientFactory, cache);
         }
 
-        public async Task<List<PedidoResponseDTO>> BuscarPorStatus(StatusPedido statusPedido)
+        public async Task<List<PedidoResponseDTO>> BuscarTodos()
         {
-            var filaPedidos = await _pedidoGateway.BuscarPorStatus(statusPedido);
-            return filaPedidos;
+            var pedidos = await _pedidoGateway.BuscarTodos();
+            return pedidos;
         }
 
         public async Task<PedidoResponseDTO> TrocarStatus(int pedidoId, StatusPedido statusPedido)

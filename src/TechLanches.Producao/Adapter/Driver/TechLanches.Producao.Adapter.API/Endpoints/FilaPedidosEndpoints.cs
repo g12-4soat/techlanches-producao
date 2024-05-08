@@ -5,7 +5,6 @@ using System.Net;
 using TechLanches.Producao.Adapter.API.Constantes;
 using TechLanches.Producao.Application.Controllers.Interfaces;
 using TechLanches.Producao.Application.DTOs;
-using TechLanches.Producao.Domain.Enums;
 
 namespace TechLanches.Producao.Adapter.API.Endpoints
 {
@@ -29,7 +28,7 @@ namespace TechLanches.Producao.Adapter.API.Endpoints
         {
             memoryCache.Set("authtoken", cognitoAcessToken, TimeSpan.FromMinutes(5));
 
-            var pedidos = await pedidoController.BuscarPorStatus(StatusPedido.PedidoEmPreparacao);
+            var pedidos = await pedidoController.BuscarTodos();
             return pedidos is not null
                 ? Results.Ok(pedidos)
                 : Results.BadRequest(new ErrorResponseDTO { MensagemErro = "Erro ao retornar fila pedido.", StatusCode = HttpStatusCode.BadRequest });

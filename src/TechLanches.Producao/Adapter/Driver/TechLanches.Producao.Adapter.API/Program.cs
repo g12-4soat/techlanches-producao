@@ -1,19 +1,25 @@
 using Polly;
 using Polly.Extensions.Http;
 using TechLanches.Producao.Adapter.API.Configuration;
-using TechLanches.Producao.Adapter.API.Constantes;
 using TechLanches.Producao.Adapter.API.Options;
 using TechLanches.Producao.Adapter.FilaPedidos;
 using TechLanches.Producao.Adapter.FilaPedidos.Health;
-using TechLanches.Producao.Adapter.FilaPedidos.Options;
 using TechLanches.Producao.Adapter.RabbitMq.Options;
 using TechLanches.Producao.Application.Constantes;
+using TechLanches.Producao.Application.Options;
+using TechLanches.Producao.Adapter.AWS;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true)
     .AddEnvironmentVariables();
+
+//AWS Secrets Manager
+builder.WebHost.ConfigureAppConfiguration(((_, configurationBuilder) =>
+{
+    configurationBuilder.AddAmazonSecretsManager("us-east-1", "lambda-auth-credentials");
+}));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

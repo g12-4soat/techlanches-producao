@@ -5,7 +5,7 @@ namespace TechLanches.Producao.Application.Controllers.Interfaces
 {
     public interface IPedidoController
     {
-        Task<List<PedidoResponseDTO>> BuscarPorStatus(StatusPedido statusPedido);
+        Task<List<PedidoResponseDTO>> BuscarTodos();
         Task<PedidoResponseDTO> TrocarStatus(int pedidoId, StatusPedido statusPedido);
     }
 }

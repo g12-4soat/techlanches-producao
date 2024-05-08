@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Adapter\Driven\TechLanches.Producao.Adapter.RabbitMq\TechLanches.Producao.Adapter.RabbitMq.csproj" />
     <ProjectReference Include="..\TechLanches.Producao.Domain\TechLanches.Producao.Domain.csproj" />
   </ItemGroup>
 

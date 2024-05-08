@@ -1,4 +1,4 @@
-﻿namespace TechLanches.Producao.Adapter.FilaPedidos.Options
+﻿namespace TechLanches.Producao.Application.Options
 {
     public class WorkerOptions
     {
