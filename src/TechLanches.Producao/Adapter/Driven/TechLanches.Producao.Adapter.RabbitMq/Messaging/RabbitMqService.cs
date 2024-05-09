@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.Json;
 using TechLanches.Producao.Adapter.RabbitMq.Options;
 
 namespace TechLanches.Producao.Adapter.RabbitMq.Messaging
@@ -30,7 +31,7 @@ namespace TechLanches.Producao.Adapter.RabbitMq.Messaging
                               false);
         }
 
-        public async Task Consumir(Func<string, Task> function)
+        public async Task Consumir(Func<PedidoMessage, Task> function)
         {
             var consumer = new AsyncEventingBasicConsumer(_channel);
 
@@ -39,7 +40,8 @@ namespace TechLanches.Producao.Adapter.RabbitMq.Messaging
                 try
                 {
                     var body = ea.Body.ToArray();
-                    await function(Encoding.UTF8.GetString(body));
+                    var message = JsonSerializer.Deserialize<PedidoMessage>(body);
+                    await function(message);
                 }
                 catch (Exception ex)
                 {

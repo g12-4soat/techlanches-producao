@@ -1,19 +1,42 @@
-﻿using TechLanches.Producao.Application.Controllers.Interfaces;
-using TechLanches.Producao.Application.DTOs;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using TechLanches.Producao.Adapter.RabbitMq;
+using TechLanches.Producao.Application.Controllers.Interfaces;
+using TechLanches.Producao.Application.Options;
 using TechLanches.Producao.Domain.Enums;
 
 namespace TechLanches.Producao.Application.Controllers
 {
     public class FilaPedidoController : IFilaPedidoController
     {
-        public async Task TrocarStatus(int pedidoId, StatusPedido statusPedido)
+        private readonly IPedidoController _pedidoController;
+        private readonly ILogger<FilaPedidoController> _logger;
+        private readonly WorkerOptions _workerOptions;
+
+        public FilaPedidoController(IPedidoController pedidoController, ILogger<FilaPedidoController> logger, IOptions<WorkerOptions> workerOptions)
         {
-            //Call MicroService
+            _pedidoController = pedidoController;
+            _logger = logger;
+            _workerOptions = workerOptions.Value;
         }
-        public async Task<List<PedidoResponseDTO>> BuscarPorStatus(StatusPedido statusPedido)
+
+        public async Task ProcessarMensagem(PedidoMessage message)
         {
-            //Call MicroService
-            return null;
+            _logger.LogInformation("FilaPedidosHostedService iniciado: {time}", DateTimeOffset.Now);
+
+            _logger.LogInformation("Próximo pedido da fila: {proximoPedidoId}", message.Id);
+
+            await _pedidoController.TrocarStatus(message.Id, StatusPedido.PedidoEmPreparacao);
+
+            _logger.LogInformation("Pedido {proximoPedidoId} em preparação.", message.Id);
+
+            await Task.Delay(1000 * _workerOptions.DelayPreparacaoPedidoEmSegundos);
+
+            _logger.LogInformation("Pedido {proximoPedidoId} preparação finalizada.", message.Id);
+
+            await _pedidoController.TrocarStatus(message.Id, StatusPedido.PedidoPronto);
+
+            _logger.LogInformation("Pedido {proximoPedidoId} pronto.", message.Id);
         }
     }
 }

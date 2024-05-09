@@ -3,6 +3,6 @@
     public interface IRabbitMqService
     {
         void Publicar(int data);
-        Task Consumir(Func<string, Task> function);
+        Task Consumir(Func<PedidoMessage, Task> function);
     }
 }

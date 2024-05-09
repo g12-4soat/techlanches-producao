@@ -1,11 +1,9 @@
-﻿using TechLanches.Producao.Application.DTOs;
-using TechLanches.Producao.Domain.Enums;
+﻿using TechLanches.Producao.Adapter.RabbitMq;
 
 namespace TechLanches.Producao.Application.Controllers.Interfaces
 {
     public interface IFilaPedidoController
     {
-        Task<List<PedidoResponseDTO>> BuscarPorStatus(StatusPedido statusPedido);
-        Task TrocarStatus(int pedidoId, StatusPedido statusPedido);
+        Task ProcessarMensagem(PedidoMessage message);
     }
 }
