@@ -11,6 +11,7 @@ namespace TechLanches.Producao.Adapter.API.Configuration
             if (services is null) throw new ArgumentNullException(nameof(services));
 
             services.AddSingleton<IPedidoController, PedidoController>();
+            services.AddSingleton<IFilaPedidoController, FilaPedidoController>();
             services.AddSingleton<IRabbitMqService, RabbitMqService>();
         }
     }
