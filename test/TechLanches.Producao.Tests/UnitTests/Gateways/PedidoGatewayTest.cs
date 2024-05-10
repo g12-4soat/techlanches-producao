@@ -32,8 +32,10 @@ namespace TechLanches.Producao.Tests.UnitTests.Gateways
             // Arrange
             var listPedidoResponseDto = new List<PedidoResponseDTO>()
                 {
-                    _filaPedidoFixture.CriarPedidoResponse(1, StatusPedido.PedidoPronto),
-                    _filaPedidoFixture.CriarPedidoResponse(2, StatusPedido.PedidoPronto)
+                    _filaPedidoFixture.CriarPedidoResponse(1, StatusPedido.PedidoRecebido),
+                    _filaPedidoFixture.CriarPedidoResponse(2, StatusPedido.PedidoEmPreparacao),
+                    _filaPedidoFixture.CriarPedidoResponse(3, StatusPedido.PedidoPronto),
+                    _filaPedidoFixture.CriarPedidoResponse(4, StatusPedido.PedidoFinalizado)
                 };
 
             _cache.Set("authtoken", "bearer token");
@@ -45,6 +47,19 @@ namespace TechLanches.Producao.Tests.UnitTests.Gateways
             // Assert
             Assert.NotNull(listPedidoResponse);
             Assert.True(listPedidoResponse.Any());
+        }
+
+        [Fact]
+        public async Task BuscarTodos_StatusDiferenteDeOk_DeveLancarException()
+        {
+            // Arrange
+            var listPedidoResponseDto = new List<PedidoResponseDTO>();
+
+            _cache.Set("authtoken", "bearer token");
+            CriarFakeHttpClient(HttpStatusCode.InternalServerError, JsonSerializer.Serialize(listPedidoResponseDto));
+
+            // Act & Assert
+            await Assert.ThrowsAsync<Exception>(async () => await _pedidoGateway.BuscarTodos());
         }
 
         [Fact]
