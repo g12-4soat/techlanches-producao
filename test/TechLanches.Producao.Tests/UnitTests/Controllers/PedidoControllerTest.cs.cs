@@ -8,7 +8,6 @@ using TechLanches.Producao.Tests.FakeHttpHandler;
 using System.Text.Json;
 using System.Net;
 using TechLanches.Producao.Tests.Fixtures;
-using Amazon.Lambda;
 
 namespace TechLanches.Producao.Tests.UnitTests.Controllers
 {
@@ -18,14 +17,12 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
         private readonly IMemoryCache _cache;
         private readonly IHttpClientFactory _httpClientFactory;
         private PedidoController _pedidoController;
-        private readonly AmazonLambdaClient _lambdaAuth;
 
         public PedidoControllerTest(FilaPedidoFixture filaPedidoFixture)
         {
             _cache = new MemoryCache(new MemoryCacheOptions());
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
             _filaPedidoFixture = filaPedidoFixture;
-            _lambdaAuth = new AmazonLambdaClient();
         }
 
         [Fact]
@@ -74,7 +71,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
                 BaseAddress = new Uri("https://example.com/")
             };
             _httpClientFactory.CreateClient(Constantes.API_PEDIDO).Returns(httpClient);
-            _pedidoController = new PedidoController(_httpClientFactory, _cache, _lambdaAuth);
+            _pedidoController = new PedidoController(_httpClientFactory, _cache);
 
             return httpClient;
         }

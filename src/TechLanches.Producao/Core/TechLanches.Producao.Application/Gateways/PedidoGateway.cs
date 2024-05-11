@@ -16,12 +16,11 @@ namespace TechLanches.Producao.Application.Gateways
     {
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
-        private readonly AmazonLambdaClient _lambdaAuth;
-        public PedidoGateway(IHttpClientFactory httpClientFactory, IMemoryCache cache, AmazonLambdaClient lambdaAuth)
+
+        public PedidoGateway(IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _cache = cache;
             _httpClient = httpClientFactory.CreateClient(Constantes.Constantes.API_PEDIDO);
-            _lambdaAuth = lambdaAuth;
         }
 
         public async Task<List<PedidoResponseDTO>> BuscarTodos()
@@ -63,6 +62,8 @@ namespace TechLanches.Producao.Application.Gateways
 
         public async Task BuscarTokenLambda(string cpf)
         {
+            var lambdaAuth = new AmazonLambdaClient();
+
             if (Constantes.Constantes.CPF_USER_DEFAULT == cpf)
                 cpf = Constantes.Constantes.USER_DEFAULT;
 
@@ -72,21 +73,22 @@ namespace TechLanches.Producao.Application.Gateways
                 Payload = "{\"body\": \"" + cpf + "\"}"
             };
 
-            var response = await _lambdaAuth.InvokeAsync(request);
-            
+            var response = await lambdaAuth.InvokeAsync(request);
+
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 var responseBody = Encoding.Default.GetString(response.Payload.ToArray());
                 var lambdaResponse = JsonSerializer.Deserialize<LambdaResponseDTO>(responseBody);
 
-                _cache.Set("authtoken", lambdaResponse.GetAccessToken());
+                if (lambdaResponse.Body is not null)
+                    _cache.Set("authtoken", lambdaResponse.GetAccessToken());
             }
             else
                 throw new Exception("Nenhum Token encontrado.");
         }
 
-        private void SetToken() 
+        private void SetToken()
         {
             var token = _cache.Get("authtoken").ToString().Split(" ")[1];
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

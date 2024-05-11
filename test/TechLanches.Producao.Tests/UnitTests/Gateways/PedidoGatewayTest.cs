@@ -1,5 +1,4 @@
-﻿using Amazon.Lambda;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using NSubstitute;
 using System.Net;
 using System.Text.Json;
@@ -19,14 +18,12 @@ namespace TechLanches.Producao.Tests.UnitTests.Gateways
         private readonly IMemoryCache _cache;
         private readonly IHttpClientFactory _httpClientFactory;
         private PedidoGateway _pedidoGateway;
-        private readonly AmazonLambdaClient _lambdaAuth;
 
         public PedidoGatewayTest(FilaPedidoFixture filaPedidoFixture)
         {
             _cache = new MemoryCache(new MemoryCacheOptions());
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
             _filaPedidoFixture = filaPedidoFixture;
-            _lambdaAuth = new AmazonLambdaClient();
         }
 
         [Fact]
@@ -108,7 +105,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Gateways
                 BaseAddress = new Uri("https://example.com/")
             };
             _httpClientFactory.CreateClient(Constantes.API_PEDIDO).Returns(httpClient);
-            _pedidoGateway = new PedidoGateway(_httpClientFactory, _cache, _lambdaAuth);
+            _pedidoGateway = new PedidoGateway(_httpClientFactory, _cache);
             return httpClient;
         }
     }

@@ -7,5 +7,6 @@ namespace TechLanches.Producao.Application.Controllers.Interfaces
     {
         Task<List<PedidoResponseDTO>> BuscarTodos();
         Task<PedidoResponseDTO> TrocarStatus(int pedidoId, StatusPedido statusPedido);
+        Task BuscarTokenLambda(string cpf);
     }
 }

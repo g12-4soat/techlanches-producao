@@ -29,7 +29,6 @@ namespace TechLanches.Producao.Tests.BDDTests.Services
         private FilaPedidoController _filaPedidoController;
         private PedidoController _pedidoController;
         private PedidoResponseDTO _pedidoResponse;
-        private readonly AmazonLambdaClient _lambdaAuth;
 
         public FilaPedidoTest(FilaPedidoFixture filaPedidoFixture)
         {
@@ -38,7 +37,6 @@ namespace TechLanches.Producao.Tests.BDDTests.Services
             _filaPedidoFixture = filaPedidoFixture;
             _cache = new MemoryCache(new MemoryCacheOptions());
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
-            _lambdaAuth = new AmazonLambdaClient();
         }
 
         [Fact(DisplayName = "Deve processar pedido com sucesso")]
@@ -85,7 +83,7 @@ namespace TechLanches.Producao.Tests.BDDTests.Services
                 BaseAddress = new Uri("https://example.com/")
             };
             _httpClientFactory.CreateClient(Constantes.API_PEDIDO).Returns(httpClient);
-            _pedidoController = new PedidoController(_httpClientFactory, _cache, _lambdaAuth);
+            _pedidoController = new PedidoController(_httpClientFactory, _cache);
             _filaPedidoController = new FilaPedidoController(_pedidoController, _logger, _workerOptions);
             return httpClient;
         }

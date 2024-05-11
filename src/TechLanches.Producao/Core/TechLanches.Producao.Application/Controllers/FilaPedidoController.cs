@@ -22,6 +22,8 @@ namespace TechLanches.Producao.Application.Controllers
 
         public async Task ProcessarMensagem(PedidoMessage message)
         {
+            await _pedidoController.BuscarTokenLambda(message.Cpf);
+
             _logger.LogInformation("FilaPedidosHostedService iniciado: {time}", DateTimeOffset.Now);
 
             _logger.LogInformation("Próximo pedido da fila: {proximoPedidoId}", message.Id);
