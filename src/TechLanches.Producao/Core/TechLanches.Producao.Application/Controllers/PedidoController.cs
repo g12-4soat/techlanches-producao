@@ -17,9 +17,9 @@ namespace TechLanches.Producao.Application.Controllers
     {
         private readonly IPedidoGateway _pedidoGateway;
 
-        public PedidoController(IHttpClientFactory httpClientFactory, IMemoryCache cache)
+        public PedidoController(IHttpClientFactory httpClientFactory, IMemoryCache cache, IAmazonLambda lambdaClient)
         {
-            _pedidoGateway = new PedidoGateway(httpClientFactory, cache);
+            _pedidoGateway = new PedidoGateway(httpClientFactory, cache, lambdaClient);
         }
 
         public async Task<List<PedidoResponseDTO>> BuscarTodos()

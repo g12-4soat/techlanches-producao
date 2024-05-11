@@ -16,11 +16,13 @@ namespace TechLanches.Producao.Application.Gateways
     {
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
+        private readonly IAmazonLambda _lambdaClient;
 
-        public PedidoGateway(IHttpClientFactory httpClientFactory, IMemoryCache cache)
+        public PedidoGateway(IHttpClientFactory httpClientFactory, IMemoryCache cache, IAmazonLambda lambdaClient)
         {
             _cache = cache;
             _httpClient = httpClientFactory.CreateClient(Constantes.Constantes.API_PEDIDO);
+            _lambdaClient = lambdaClient;
         }
 
         public async Task<List<PedidoResponseDTO>> BuscarTodos()
@@ -62,8 +64,6 @@ namespace TechLanches.Producao.Application.Gateways
 
         public async Task BuscarTokenLambda(string cpf)
         {
-            var lambdaAuth = new AmazonLambdaClient();
-
             if (Constantes.Constantes.CPF_USER_DEFAULT == cpf)
                 cpf = Constantes.Constantes.USER_DEFAULT;
 
@@ -73,19 +73,17 @@ namespace TechLanches.Producao.Application.Gateways
                 Payload = "{\"body\": \"" + cpf + "\"}"
             };
 
-            var response = await lambdaAuth.InvokeAsync(request);
+            var response = await _lambdaClient.InvokeAsync(request);
 
 
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            if (response?.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 var responseBody = Encoding.Default.GetString(response.Payload.ToArray());
                 var lambdaResponse = JsonSerializer.Deserialize<LambdaResponseDTO>(responseBody);
 
                 if (lambdaResponse.Body is not null)
                     _cache.Set("authtoken", lambdaResponse.GetAccessToken());
-            }
-            else
-                throw new Exception("Nenhum Token encontrado.");
+            }            
         }
 
         private void SetToken()
