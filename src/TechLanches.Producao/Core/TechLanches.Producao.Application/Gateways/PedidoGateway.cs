@@ -1,7 +1,11 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Amazon.Lambda;
+using Amazon.Lambda.Model;
+using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using TechLanches.Producao.Application.Constantes;
 using TechLanches.Producao.Application.DTOs;
 using TechLanches.Producao.Application.Gateways.Interfaces;
 using TechLanches.Producao.Domain.Enums;
@@ -12,10 +16,12 @@ namespace TechLanches.Producao.Application.Gateways
     {
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
-        public PedidoGateway(IHttpClientFactory httpClientFactory, IMemoryCache cache)
+        private readonly AmazonLambdaClient _lambdaAuth;
+        public PedidoGateway(IHttpClientFactory httpClientFactory, IMemoryCache cache, AmazonLambdaClient lambdaAuth)
         {
             _cache = cache;
             _httpClient = httpClientFactory.CreateClient(Constantes.Constantes.API_PEDIDO);
+            _lambdaAuth = lambdaAuth;
         }
 
         public async Task<List<PedidoResponseDTO>> BuscarTodos()
@@ -53,6 +59,31 @@ namespace TechLanches.Producao.Application.Gateways
             var pedido = JsonSerializer.Deserialize<PedidoResponseDTO>(resultStr);
 
             return pedido;
+        }
+
+        public async Task BuscarTokenLambda(string cpf)
+        {
+            if (Constantes.Constantes.CPF_USER_DEFAULT == cpf)
+                cpf = Constantes.Constantes.USER_DEFAULT;
+
+            var request = new InvokeRequest
+            {
+                FunctionName = Constantes.Constantes.NOME_LAMBDA,
+                Payload = "{\"body\": \"" + cpf + "\"}"
+            };
+
+            var response = await _lambdaAuth.InvokeAsync(request);
+            
+
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseBody = Encoding.Default.GetString(response.Payload.ToArray());
+                var lambdaResponse = JsonSerializer.Deserialize<LambdaResponseDTO>(responseBody);
+
+                _cache.Set("authtoken", lambdaResponse.GetAccessToken());
+            }
+            else
+                throw new Exception("Nenhum Token encontrado.");
         }
 
         private void SetToken() 

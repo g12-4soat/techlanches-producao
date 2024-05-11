@@ -20,6 +20,7 @@ using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using TechLanches.Producao.Domain.Enums;
 using System.Text.Json;
 using Microsoft.Extensions.Logging.Abstractions;
+using Amazon.Lambda;
 
 namespace TechLanches.Producao.Tests.UnitTests.Controllers
 {
@@ -34,6 +35,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
         private FilaPedidoController _filaPedidoController;
         private PedidoController _pedidoController;
         private PedidoResponseDTO _pedidoResponse;
+        private readonly AmazonLambdaClient _lambdaAuth;
 
         public FilaPedidoControllerTest(FilaPedidoFixture filaPedidoFixture)
         {
@@ -42,6 +44,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
             _filaPedidoFixture = filaPedidoFixture;
             _cache = new MemoryCache(new MemoryCacheOptions());
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
+            _lambdaAuth = new AmazonLambdaClient();
         }
 
         [Fact]
@@ -74,7 +77,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
                 BaseAddress = new Uri("https://example.com/")
             };
             _httpClientFactory.CreateClient(Constantes.API_PEDIDO).Returns(httpClient);
-            _pedidoController = new PedidoController(_httpClientFactory, _cache);
+            _pedidoController = new PedidoController(_httpClientFactory, _cache, _lambdaAuth);
             _filaPedidoController = new FilaPedidoController(_pedidoController, _logger, _workerOptions);
             return httpClient;
         }
