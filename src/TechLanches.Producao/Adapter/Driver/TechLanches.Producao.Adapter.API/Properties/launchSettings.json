@@ -5,7 +5,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PEDIDO_SERVICE": "techlanches-api-pedido-service"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5106"

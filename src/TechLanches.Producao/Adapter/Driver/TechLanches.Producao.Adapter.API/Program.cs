@@ -16,14 +16,13 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 //AWS Secrets Manager
-builder.WebHost.ConfigureAppConfiguration(((_, configurationBuilder) =>
-{
-    configurationBuilder.AddAmazonSecretsManager("us-east-1", "lambda-auth-credentials");
-}));
+builder.Configuration
+    .AddAmazonSecretsManager("us-east-1", "lambda-auth-credentials");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 //Add cognito auth
 builder.Services.Configure<AuthenticationCognitoOptions>(builder.Configuration.GetSection("Authentication"));
@@ -71,8 +70,6 @@ app.UseSwaggerConfiguration();
 app.AddHealthCheckEndpoint();
 
 app.UseMapEndpointsConfiguration();
-
-app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
