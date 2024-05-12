@@ -16,8 +16,8 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 //AWS Secrets Manager
-builder.Configuration
-    .AddAmazonSecretsManager("us-east-1", "lambda-auth-credentials");
+//builder.Configuration
+//    .AddAmazonSecretsManager("us-east-1", "lambda-auth-credentials");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,18 +43,18 @@ builder.Services.AddHttpClient(Constantes.API_PEDIDO, httpClient =>
 
 builder.Services.AddMemoryCache();
 
-builder.Services.AddAuthenticationConfig();
+//builder.Services.AddAuthenticationConfig();
 
 //Setting Swagger
 builder.Services.AddSwaggerConfiguration();
 
 //DI Abstraction
-builder.Services.AddDependencyInjectionConfiguration();
+//builder.Services.AddDependencyInjectionConfiguration();
 
 builder.Services.AddHealthCheckConfig(builder.Configuration);
 
-builder.Services.AddHostedService<FilaPedidosHostedService>();
-builder.Services.AddHostedService<TcpHealthProbeService>();
+//builder.Services.AddHostedService<FilaPedidosHostedService>();
+//builder.Services.AddHostedService<TcpHealthProbeService>();
 
 var app = builder.Build();
 
@@ -62,8 +62,8 @@ app.AddCustomMiddlewares();
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.UseSwaggerConfiguration();
 
