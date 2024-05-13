@@ -1,7 +1,6 @@
 using Polly;
 using Polly.Extensions.Http;
 using TechLanches.Producao.Adapter.API.Configuration;
-using TechLanches.Producao.Adapter.API.Options;
 using TechLanches.Producao.Adapter.FilaPedidos;
 using TechLanches.Producao.Adapter.FilaPedidos.Health;
 using TechLanches.Producao.Adapter.RabbitMq.Options;
@@ -19,12 +18,12 @@ builder.Configuration
 builder.Configuration
     .AddAmazonSecretsManager("us-east-1", "lambda-auth-credentials");
 
+builder.Services.Configure<TechLanchesCognitoSecrets>(builder.Configuration);
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//Add cognito auth
-builder.Services.Configure<AuthenticationCognitoOptions>(builder.Configuration.GetSection("Authentication"));
 builder.Services.Configure<WorkerOptions>(builder.Configuration.GetSection("Worker"));
 builder.Services.Configure<RabbitOptions>(builder.Configuration.GetSection("RabbitMQ"));
 
