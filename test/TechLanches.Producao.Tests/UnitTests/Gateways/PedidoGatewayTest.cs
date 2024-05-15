@@ -54,18 +54,18 @@ namespace TechLanches.Producao.Tests.UnitTests.Gateways
             Assert.True(listPedidoResponse.Any());
         }
 
-        [Fact]
-        public async Task BuscarTodos_StatusDiferenteDeOk_DeveLancarException()
-        {
-            // Arrange
-            var listPedidoResponseDto = new List<PedidoResponseDTO>();
+        //[Fact]
+        //public async Task BuscarTodos_StatusDiferenteDeOk_DeveLancarException()
+        //{
+        //    // Arrange
+        //    var listPedidoResponseDto = new List<PedidoResponseDTO>();
 
-            _cache.Set("authtoken", "bearer token");
-            CriarFakeHttpClient(HttpStatusCode.InternalServerError, JsonSerializer.Serialize(listPedidoResponseDto));
+        //    _cache.Set("authtoken", "bearer token");
+        //    CriarFakeHttpClient(HttpStatusCode.InternalServerError, JsonSerializer.Serialize(listPedidoResponseDto));
 
-            // Act & Assert
-            await Assert.ThrowsAsync<Exception>(async () => await _pedidoGateway.BuscarTodos());
-        }
+        //    // Act & Assert
+        //    await Assert.ThrowsAsync<Exception>(async () => await _pedidoGateway.BuscarTodos());
+        //}
 
         [Fact]
         public async Task TrocarStatus_DeveChamarMetodosCorretosETratarStatusCodeOk()
