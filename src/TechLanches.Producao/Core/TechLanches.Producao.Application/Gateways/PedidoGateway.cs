@@ -31,7 +31,7 @@ namespace TechLanches.Producao.Application.Gateways
             SetToken();
 
             var pedidos = await _httpClient.GetFromJsonAsync<List<PedidoResponseDTO>>($"api/pedidos");
-            Console.WriteLine(JsonSerializer.Serialize(pedidos));
+
             return pedidos.Where(x => x.StatusPedido == StatusPedido.PedidoRecebido ||
                             x.StatusPedido == StatusPedido.PedidoEmPreparacao ||
                             x.StatusPedido == StatusPedido.PedidoPronto ||
