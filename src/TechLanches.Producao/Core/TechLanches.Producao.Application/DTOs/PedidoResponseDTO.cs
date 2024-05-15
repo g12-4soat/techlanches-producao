@@ -11,16 +11,11 @@ namespace TechLanches.Producao.Application.DTOs
         public int Id { get; set; }
 
         /// <summary>
-        /// Id do cliente
+        /// Cpf do cliente
         /// </summary>
-        /// <example>2</example>
-        public int? ClienteId { get; set; }
+        /// <example>400.108.135-10</example>
+        public string ClienteCpf { get; set; }
 
-        /// <summary>
-        /// Nome do cliente
-        /// </summary>
-        /// <example>Ana Luiza</example>
-        public string NomeCliente { get; set; }
 
         /// <summary>
         /// Nome do Status do pedido 
@@ -41,6 +36,5 @@ namespace TechLanches.Producao.Application.DTOs
         public decimal Valor { get; set; }
 
         public List<ItemPedidoResponseDTO> ItensPedido { get; set; }
-        public List<PagamentoResponseDTO> Pagamentos { get; set; }
     }
 }
