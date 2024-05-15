@@ -36,8 +36,10 @@ namespace TechLanches.Producao.Application.Gateways
 
             string resultStr = await response.Content.ReadAsStringAsync();
 
+            Console.WriteLine(resultStr);
             var pedidos = JsonSerializer.Deserialize<List<PedidoResponseDTO>>(resultStr);
 
+            Console.WriteLine(pedidos);
             return pedidos.Where(x => x.StatusPedido == StatusPedido.PedidoRecebido ||
                             x.StatusPedido == StatusPedido.PedidoEmPreparacao ||
                             x.StatusPedido == StatusPedido.PedidoPronto ||
