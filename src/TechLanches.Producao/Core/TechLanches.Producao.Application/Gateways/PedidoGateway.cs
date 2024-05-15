@@ -3,6 +3,7 @@ using Amazon.Lambda.Model;
 using Amazon.Runtime.Internal.Util;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using TechLanches.Producao.Application.Constantes;
@@ -29,17 +30,8 @@ namespace TechLanches.Producao.Application.Gateways
         {
             SetToken();
 
-            var response = await _httpClient.GetAsync($"api/pedidos");
-
-            if (response.IsSuccessStatusCode == false)
-                throw new Exception("Erro durante chamada api de pedidos.");
-
-            string resultStr = await response.Content.ReadAsStringAsync();
-
-            Console.WriteLine(resultStr);
-            var pedidos = JsonSerializer.Deserialize<List<PedidoResponseDTO>>(resultStr);
-
-            Console.WriteLine(pedidos);
+            var pedidos = await _httpClient.GetFromJsonAsync<List<PedidoResponseDTO>>($"api/pedidos");
+            Console.WriteLine(JsonSerializer.Serialize(pedidos));
             return pedidos.Where(x => x.StatusPedido == StatusPedido.PedidoRecebido ||
                             x.StatusPedido == StatusPedido.PedidoEmPreparacao ||
                             x.StatusPedido == StatusPedido.PedidoPronto ||
