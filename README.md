@@ -45,7 +45,6 @@ Para importar as collections do postman, basta acessar os links a seguir:
 > Quando uma nova instância do API Gateway é criada, uma nova URL é gerada, exigindo a atualização manual da URL na Enviroment do Postman.
   ---
 
-
 </details>
 
 <details>
@@ -55,6 +54,16 @@ Para importar as collections do postman, basta acessar os links a seguir:
 - C-Sharp - 10.0
 - .NET - 8.0
 </details>
+
+---
+
+## Métricas Sonar
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=coverage)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
 
 ---
 
