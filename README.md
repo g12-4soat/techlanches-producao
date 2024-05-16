@@ -63,7 +63,6 @@ Para importar as collections do postman, basta acessar os links a seguir:
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=coverage)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=bugs)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=g12-4soat_techlanches-producao&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=g12-4soat_techlanches-producao)
 
 ---
