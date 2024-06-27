@@ -24,6 +24,16 @@ builder.Services.Configure<TechLanchesCognitoSecrets>(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+//Colocado somente para conseguir rodar local... Recomendação da Microsoft é para rodar somente em produção
+//TODO: Remover antes de finalizar a fase 
+builder.Services.AddHsts(options =>
+{
+    options.ExcludedHosts.Clear();
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(60);
+});
+
 builder.Services.Configure<WorkerOptions>(builder.Configuration.GetSection("Worker"));
 builder.Services.Configure<RabbitOptions>(builder.Configuration.GetSection("RabbitMQ"));
 
@@ -34,8 +44,8 @@ var retryPolicy = HttpPolicyExtensions.HandleTransientHttpError()
 //Registrar httpclient
 builder.Services.AddHttpClient(Constantes.API_PEDIDO, httpClient =>
 {
-    var url = Environment.GetEnvironmentVariable("PEDIDO_SERVICE");
-    httpClient.BaseAddress = new Uri("http://" + url + ":5050");
+    var url = "localhost";
+    httpClient.BaseAddress = new Uri($"http://{url}:5298");
 }).AddPolicyHandler(retryPolicy);
 
 builder.Services.AddMemoryCache();
@@ -54,6 +64,7 @@ builder.Services.AddHostedService<FilaPedidosHostedService>();
 builder.Services.AddHostedService<TcpHealthProbeService>();
 
 var app = builder.Build();
+app.UseHsts();
 
 app.AddCustomMiddlewares();
 
