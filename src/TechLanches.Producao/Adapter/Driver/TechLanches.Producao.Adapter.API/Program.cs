@@ -44,8 +44,8 @@ var retryPolicy = HttpPolicyExtensions.HandleTransientHttpError()
 //Registrar httpclient
 builder.Services.AddHttpClient(Constantes.API_PEDIDO, httpClient =>
 {
-    var url = "localhost";
-    httpClient.BaseAddress = new Uri($"http://{url}:5298");
+    var url = Environment.GetEnvironmentVariable("PEDIDO_SERVICE");
+    httpClient.BaseAddress = new Uri("http://" + url + ":5050");
 }).AddPolicyHandler(retryPolicy);
 
 builder.Services.AddMemoryCache();
