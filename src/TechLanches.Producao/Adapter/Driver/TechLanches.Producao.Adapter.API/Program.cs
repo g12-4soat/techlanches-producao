@@ -24,16 +24,6 @@ builder.Services.Configure<TechLanchesCognitoSecrets>(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//Colocado somente para conseguir rodar local... Recomendação da Microsoft é para rodar somente em produção
-//TODO: Remover antes de finalizar a fase 
-builder.Services.AddHsts(options =>
-{
-    options.ExcludedHosts.Clear();
-    options.Preload = true;
-    options.IncludeSubDomains = true;
-    options.MaxAge = TimeSpan.FromDays(60);
-});
-
 builder.Services.Configure<WorkerOptions>(builder.Configuration.GetSection("Worker"));
 builder.Services.Configure<RabbitOptions>(builder.Configuration.GetSection("RabbitMQ"));
 
@@ -69,7 +59,11 @@ app.Use(async (context, next) =>
     context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
     await next();
 });
-app.UseHsts();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
 
 app.AddCustomMiddlewares();
 
