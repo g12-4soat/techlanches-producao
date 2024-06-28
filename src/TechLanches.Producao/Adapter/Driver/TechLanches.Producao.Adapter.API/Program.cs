@@ -54,6 +54,16 @@ builder.Services.AddHostedService<FilaPedidosHostedService>();
 builder.Services.AddHostedService<TcpHealthProbeService>();
 
 var app = builder.Build();
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    await next();
+});
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
 
 app.AddCustomMiddlewares();
 
