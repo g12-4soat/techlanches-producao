@@ -26,6 +26,12 @@ namespace TechLanches.Producao.Adapter.RabbitMq.Messaging
                                   autoDelete: false,
                                   arguments: null);
 
+            _channel.QueueDeclare(queue: _rabbitOptions.QueueOrderStatus,
+                                  durable: true,
+                                  exclusive: false,
+                                  autoDelete: false,
+                                  arguments: null);
+
             _channel.BasicQos(_rabbitOptions.PrefetchSize, 
                               _rabbitOptions.PrefetchCount, 
                               false);
