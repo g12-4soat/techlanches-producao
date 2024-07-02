@@ -6,6 +6,7 @@
         public string User { get; set; }
         public string Password { get; set; }
         public string Queue { get; set; }
+        public string QueueOrderStatus { get; set; }
         public uint PrefetchSize { get; set; }
         public ushort PrefetchCount { get; set; }
     }

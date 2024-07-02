@@ -26,6 +26,12 @@ namespace TechLanches.Producao.Adapter.RabbitMq.Messaging
                                   autoDelete: false,
                                   arguments: null);
 
+            _channel.QueueDeclare(queue: _rabbitOptions.QueueOrderStatus,
+                                  durable: true,
+                                  exclusive: false,
+                                  autoDelete: false,
+                                  arguments: null);
+
             _channel.BasicQos(_rabbitOptions.PrefetchSize, 
                               _rabbitOptions.PrefetchCount, 
                               false);
@@ -56,14 +62,14 @@ namespace TechLanches.Producao.Adapter.RabbitMq.Messaging
             _channel.BasicConsume(queue: _rabbitOptions.Queue, autoAck: false, consumer: consumer);
         }
 
-        public void Publicar(int data)
+        public void Publicar(PedidoStatusMessage data)
         {
-            var mensagem = Encoding.UTF8.GetBytes(data.ToString());
+            var mensagem = Encoding.UTF8.GetBytes(data.GetMessage());
 
             var properties = _channel.CreateBasicProperties();
             properties.DeliveryMode = 2; // Marca a mensagem como persistente
             _channel.BasicPublish(exchange: string.Empty,
-                                  routingKey: _rabbitOptions.Queue,
+                                  routingKey: _rabbitOptions.QueueOrderStatus,
                                   basicProperties: properties,
                                   body: mensagem);
         }

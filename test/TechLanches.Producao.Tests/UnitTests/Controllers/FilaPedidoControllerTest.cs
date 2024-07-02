@@ -21,6 +21,7 @@ using TechLanches.Producao.Domain.Enums;
 using System.Text.Json;
 using Microsoft.Extensions.Logging.Abstractions;
 using Amazon.Lambda;
+using TechLanches.Producao.Adapter.RabbitMq.Messaging;
 
 namespace TechLanches.Producao.Tests.UnitTests.Controllers
 {
@@ -36,6 +37,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
         private PedidoController _pedidoController;
         private PedidoResponseDTO _pedidoResponse;
         private readonly IAmazonLambda _lambdaClient;
+        private readonly IRabbitMqService _rabbitMqService;
 
         public FilaPedidoControllerTest(FilaPedidoFixture filaPedidoFixture)
         {
@@ -45,6 +47,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
             _cache = new MemoryCache(new MemoryCacheOptions());
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
             _lambdaClient = Substitute.For<IAmazonLambda>();
+            _rabbitMqService = Substitute.For<IRabbitMqService>();
         }
 
         [Fact]
@@ -78,7 +81,7 @@ namespace TechLanches.Producao.Tests.UnitTests.Controllers
             };
             _httpClientFactory.CreateClient(Constantes.API_PEDIDO).Returns(httpClient);
             _pedidoController = new PedidoController(_httpClientFactory, _cache, _lambdaClient);
-            _filaPedidoController = new FilaPedidoController(_pedidoController, _logger, _workerOptions);
+            _filaPedidoController = new FilaPedidoController(_pedidoController, _logger, _workerOptions, _rabbitMqService);
             return httpClient;
         }
     }

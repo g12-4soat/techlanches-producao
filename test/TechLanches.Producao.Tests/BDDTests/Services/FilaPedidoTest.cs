@@ -7,6 +7,7 @@ using NSubstitute;
 using System.Net;
 using System.Text.Json;
 using TechLanches.Producao.Adapter.RabbitMq;
+using TechLanches.Producao.Adapter.RabbitMq.Messaging;
 using TechLanches.Producao.Application.Constantes;
 using TechLanches.Producao.Application.Controllers;
 using TechLanches.Producao.Application.DTOs;
@@ -30,7 +31,7 @@ namespace TechLanches.Producao.Tests.BDDTests.Services
         private PedidoController _pedidoController;
         private PedidoResponseDTO _pedidoResponse;
         private readonly IAmazonLambda _lambdaClient;
-
+        private readonly IRabbitMqService _rabbitMqService;
         public FilaPedidoTest(FilaPedidoFixture filaPedidoFixture)
         {
             _workerOptions = Options.Create(new WorkerOptions { DelayPreparacaoPedidoEmSegundos = 20 });
@@ -39,6 +40,7 @@ namespace TechLanches.Producao.Tests.BDDTests.Services
             _cache = new MemoryCache(new MemoryCacheOptions());
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
             _lambdaClient = Substitute.For<IAmazonLambda>();
+            _rabbitMqService = Substitute.For<IRabbitMqService>();
         }
 
         [Fact(DisplayName = "Deve processar pedido com sucesso")]
@@ -86,7 +88,7 @@ namespace TechLanches.Producao.Tests.BDDTests.Services
             };
             _httpClientFactory.CreateClient(Constantes.API_PEDIDO).Returns(httpClient);
             _pedidoController = new PedidoController(_httpClientFactory, _cache, _lambdaClient);
-            _filaPedidoController = new FilaPedidoController(_pedidoController, _logger, _workerOptions);
+            _filaPedidoController = new FilaPedidoController(_pedidoController, _logger, _workerOptions, _rabbitMqService);
             return httpClient;
         }
 
