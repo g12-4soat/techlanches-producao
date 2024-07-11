@@ -45,6 +45,16 @@ builder.Services.AddAuthenticationConfig();
 //Setting Swagger
 builder.Services.AddSwaggerConfiguration();
 
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHsts(options =>
+    {
+        options.Preload = true;
+        options.IncludeSubDomains = true;
+        options.MaxAge = TimeSpan.FromDays(60);
+    });
+}
+
 //DI Abstraction
 builder.Services.AddDependencyInjectionConfiguration();
 
